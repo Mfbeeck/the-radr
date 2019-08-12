@@ -1,0 +1,23 @@
+/* //////////////// */
+/* SITEWIDE CSS */
+body {
+  background: black;
+}
+
+/* Navbar CSS */
+.navbar {
+  border-radius: 0;
+  border-bottom: 1px solid #262626;
+}
+
+/* Page Titles */
+.title {
+  color: white;
+  text-align: center;
+}
+
+/* //////////////// */
+
+.all-artists {
+  text-align:center;
+}

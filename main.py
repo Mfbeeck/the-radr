@@ -1,6 +1,11 @@
 from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+
+import data_functions as data_funcs
 
 app = Flask(__name__)
+# Instantiate bootstrap
+Bootstrap(app)
 
 @app.route("/")
 def home():
@@ -16,7 +21,8 @@ def top_tracks():
 
 @app.route("/followed_artists")
 def followed_artists():
-    return render_template("followed_artists.html")
+    df_followed_artist = data_funcs.get_followed_artists()
+    return render_template("followed_artists.html", df=df_followed_artist)
 
 @app.route("/about")
 def about():
