@@ -4,6 +4,10 @@ body {
   background: black;
 }
 
+audio {
+  outline: 0;
+}
+
 /* Navbar CSS */
 .navbar {
   border-radius: 0;
@@ -12,12 +16,76 @@ body {
 
 /* Page Titles */
 .title {
-  color: white;
+  color: lightcyan;
   text-align: center;
 }
 
 /* //////////////// */
-
+/* Followed Artists Page */
 .all-artists {
   text-align:center;
+}
+
+img.followed-artists-img {
+  height: 200px;
+  width: auto;
+}
+
+widget img {
+  display: none ;
+}
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.row.force-height>div {
+    height: 300px;
+}
+
+.followed-artist-div {
+}
+
+.thumbnail {
+  background-color: black;
+  border: 1px solid cadetblue;
+  padding-top: 50px;
+}
+
+.followed-artist-h {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.followed-artist-h a {
+  font-weight: bold;
+  color: lightcyan;
+}
+
+li.list-group-item {
+  border: 0px solid black;
+  background-color: black;
+  text-align: left;
+  display: grid;
+}
+
+.list-group-item .track-name {
+  color: white;
+  font-weight: lighter;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+li.list-group-item audio {
+  height: 40px;
+  width: 90%;
+  margin:auto;
 }

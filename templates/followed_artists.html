@@ -4,25 +4,34 @@
 
 {% block content %}
 <h1 class='title'>Followed Artists</h1>
-<div class='all-artists'>
-  <div class="row" style="height:100px;">
-    {% for index, row in df.head(15).iterrows(): %}
-      <div class="col-sm-6 col-md-4">
+<div class='all-artists container'>
+  <div class="row row-eq-height" style="margin:20px;">
+    {% for index, row in df.iterrows(): %}
+      <div class="followed-artist-div col-sm-6 col-md-4">
         <div class="thumbnail">
-          <!-- <img src="{{row['image']}}"> -->
+          <img class="followed-artists-img" src="{{row['image']}}">
           <div class="caption">
-            <!-- <h3>
+            <h3 class="followed-artist-h">
               <a href="https://open.spotify.com/artist/{{row['id']}}" target='_blank'>{{row['name']}}</a>
-            </h3> -->
-            <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:{{row['id']}}&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
-            <p>...</p>
-            {% for track in row['top_tracks']%}
-              <iframe src="https://open.spotify.com/embed/track/{{track[0]}}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            {% endfor %}
+            </h3>
+            <!-- <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:{{row['id']}}&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe> -->
+            <ul class="list-group">
+              {% for track in row['top_tracks'][:3]%}
+                <li class="list-group-item">
+                  <span class="track-name">
+                    {{ loop.index0 + 1}}. {{ track[1] }}
+                  </span>
+                  <audio controls name="media">
+                    <source src="{{track[2]}}" type="audio/mpeg">
+                  </audio>
+                </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
+
 </div>
 {% endblock %}

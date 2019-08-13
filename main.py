@@ -22,7 +22,7 @@ def top_tracks():
 @app.route("/followed_artists")
 def followed_artists():
     df_followed_artist = data_funcs.get_followed_artists()
-    return render_template("followed_artists.html", df=df_followed_artist)
+    return render_template("followed_artists.html", df=df_followed_artist.head(30))
 
 @app.route("/about")
 def about():
