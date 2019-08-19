@@ -3,35 +3,53 @@
 {% set active_page = "followed_artists" %}
 
 {% block content %}
-<h1 class='title'>Followed Artists</h1>
-<div class='all-artists container'>
-  <div class="row row-eq-height" style="margin:20px;">
-    {% for index, row in df.iterrows(): %}
-      <div class="followed-artist-div col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img class="followed-artists-img" src="{{row['image']}}">
-          <div class="caption">
-            <h3 class="followed-artist-h">
-              <a href="https://open.spotify.com/artist/{{row['id']}}" target='_blank'>{{row['name']}}</a>
-            </h3>
-            <!-- <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:{{row['id']}}&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe> -->
-            <ul class="list-group">
-              {% for track in row['top_tracks'][:3]%}
-                <li class="list-group-item">
-                  <span class="track-name">
-                    {{ loop.index0 + 1}}. {{ track[1] }}
-                  </span>
-                  <audio controls name="media">
-                    <source src="{{track[2]}}" type="audio/mpeg">
-                  </audio>
-                </li>
-              {% endfor %}
-            </ul>
+  <div class='all-artists container'>
+    <div class="dropdown time-range-dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {% if request.args['sort'] %}
+          {% set sort = request.args['sort'] %}
+          {{ filter_dict[request.args['sort']] }}
+        {% else %}
+          {% set sort = 'popularity' %}
+          Current Popularity
+        {% endif %}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" id="artist_dropdown" aria-labelledby="dropdownMenu1">
+        {% for order in filter_dict.keys(): %}
+          <li><a href="{{ url_for('followed_artists', sort=order) }}">{{ filter_dict[order] }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <br>
+    <h1 class='title'>Followed Artists</h1>
+    <div class="row row-eq-height" style="margin:20px;">
+      {% for index, row in df.iterrows(): %}
+        <div class="followed-artist-div col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="artist-img-div">
+              <img class="followed-artists-img" src="{{row['image']}}">
+            </div>
+            <div class="caption">
+              <h3 class="followed-artist-h">
+                <a href="https://open.spotify.com/artist/{{row['id']}}" target='_blank'>{{row['name']}}</a>
+              </h3>
+              <ul class="list-group">
+                {% for track in row['top_tracks'][:3]%}
+                  <li class="list-group-item">
+                    <span class="track-name">
+                      {{ loop.index0 + 1}}. <a href="https://open.spotify.com/track/{{track[0]}}" target="_blank">{{ track[1] }}</a>
+                    </span>
+                    <audio controls name="media">
+                      <source src="{{track[2]}}" type="audio/mpeg">
+                    </audio>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-
-</div>
 {% endblock %}

@@ -3,5 +3,61 @@
 {% set active_page = "top_tracks" %}
 
 {% block content %}
-<h1 class='title'>Top Tracks</h1>
+  <div class='all-artists container'>
+    <div class="dropdown time-range-dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {% if request.args['time_range'] %}
+          {% set time_range = request.args['time_range'] %}
+          {{ range_dict[request.args['time_range']] }}
+        {% else %}
+          {% set time_range = 'short_term' %}
+          Last Month
+        {% endif %}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" id="artist_dropdown" aria-labelledby="dropdownMenu1">
+        {% for range in range_dict.keys(): %}
+          <li><a href="{{ url_for('top_tracks', time_range=range) }}">{{ range_dict[range] }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <br>
+    <h1 class='title'>Top Tracks</h1>
+    <div class="row row-eq-height" style="margin:20px;">
+      {% for index, row in df.iterrows(): %}
+        <div class="followed-artist-div col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="artist-img-div">
+              <img class="followed-artists-img" src="{{row['album_art']}}">
+            </div>
+            <div class="caption">
+              <h3 class="followed-artist-h">
+                <a href="https://open.spotify.com/track/{{row['id']}}" target='_blank'>{{row['name']}}</a>
+              </h3>
+              <span class='top-track'>
+                <p class='track-artist'>{{ row['artists'][0]['name'] }}</p>
+                <audio controls name="media">
+                  <source src="{{ row['preview_url'] }}" type="audio/mpeg">
+                </audio>
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+  <script type="text/javascript">
+    $('.dropdown').on('show.bs.dropdown', function() {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+
+    // Add slideUp animation to Bootstrap dropdown when collapsing.
+    $('.dropdown').on('hide.bs.dropdown', function() {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  </script>
 {% endblock %}

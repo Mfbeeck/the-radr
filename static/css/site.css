@@ -18,7 +18,12 @@ audio {
 .title {
   color: lightcyan;
   text-align: center;
+  animation: hammer 5s linear 2s infinite;
 }
+/* @keyframes hammer {
+    0%    { transform: rotateY(0deg);  }
+    100%  { transform: rotateY(360deg);}
+ } */
 
 /* //////////////// */
 /* Followed Artists Page */
@@ -27,7 +32,7 @@ audio {
 }
 
 img.followed-artists-img {
-  height: 200px;
+  /* height: 200px; */
   width: auto;
 }
 
@@ -54,7 +59,7 @@ widget img {
 .thumbnail {
   background-color: black;
   border: 1px solid cadetblue;
-  padding-top: 50px;
+  padding-top: 5px;
 }
 
 .followed-artist-h {
@@ -84,8 +89,55 @@ li.list-group-item {
   text-overflow: ellipsis;
 }
 
+.track-name a {
+  color: white;
+}
+
 li.list-group-item audio {
-  height: 40px;
+  height: 30px;
   width: 90%;
   margin:auto;
+}
+
+.artist-img-div {
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  height: 48vh;
+}
+
+.artist-img-div img {
+  width: 95%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0px;
+}
+
+.followed-artist-div {
+    opacity: 0;
+}
+
+/* TOP TRACKS */
+
+.top-track audio {
+  width: 95%;
+  height: 40px;
+}
+
+.track-artist {
+  color: white;
+  font-weight: lighter;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time-range-dropdown {
+  float:right;
+  margin-right: 36px;
 }
